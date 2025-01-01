@@ -1,8 +1,9 @@
-import { createConfig } from '@nousantx/tenoxui-styler'
+import type { Config } from '@nousantx/tenoxui-styler'
 import { plugins } from 'tenoxui-plugin-utility'
 
-export default createConfig({
+export default {
   shorthand: {
+    shadow: '--nsx_shadow-color',
     'bdr-c': {
       property: 'borderColor',
       value: 'rgb({0} / var(--border-opacity, 1))'
@@ -23,7 +24,8 @@ export default createConfig({
   },
   alias: {
     space: 'jc-space-between',
-    'content-wrapper': '[m,p]-0 [box-sizing]-border-box'
+    'content-wrapper': '[m,p]-0 [box-sizing]-border-box',
+    pa: 'fs-1rem fw-500 ls--0.015em'
   },
   color: {
     DEFAULT: {
@@ -34,7 +36,8 @@ export default createConfig({
       blue: '#3d82f2',
       yellow: '#f1c230',
       slate: '#636c7c',
-      neutral: '#737373',
+      // neutral: '#737373', //# DEFAULT
+      neutral: '#4a4a4a',
       // extended color
       ruby: '#e0115f',
       tomato: '#ff6347',
@@ -62,4 +65,4 @@ export default createConfig({
     }
   },
   plugins: [plugins.typography, plugins.border, plugins.boxShadow]
-})
+} satisfies Config
