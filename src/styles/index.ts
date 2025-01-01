@@ -1,9 +1,14 @@
 import { useLayoutEffect } from 'react'
-import { init } from '@nousantx/tenoxui-styler'
+import { init,createConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
+import { useTheme } from '@/contexts/ThemeContext'
 
-export const styler = () => {
+
+
+export const styler = (deps: any[] = []) => {
+  const { darkMode } = useTheme()
   useLayoutEffect(() => {
-    init({ config })
-  }, [])
+    const tenoxuiConfig = createConfig({ ...config, isDark: darkMode })
+    init({ config: tenoxuiConfig })
+  }, [darkMode, ...deps])
 }
