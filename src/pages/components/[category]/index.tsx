@@ -1,4 +1,4 @@
-import { useState,  useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { componentData } from '@/data/components'
 import { createSlug } from '@/utils/slugs'

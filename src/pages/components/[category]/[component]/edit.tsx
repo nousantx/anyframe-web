@@ -6,7 +6,6 @@ import DOMPurify from 'dompurify'
 import { styler } from '@stylx'
 
 export default function EditComponentPage() {
-  
   const { category, component } = useParams()
   const [code, setCode] = useState('')
   const [componentName, setComponentName] = useState('')
@@ -86,7 +85,7 @@ export default function EditComponentPage() {
           <h2 className="text-md">Editor</h2>
           <textarea
             value={code}
-            onChange={e => setCode(e.target.value)}
+            onChange={(e) => setCode(e.target.value)}
             className="mt-8px br-8px family-code w-full p-1rem text-rose-600 lh-1.5 [border,outline]-none [background]-[rgb({neutral-100}_/_0.3)] h-mn-200px"
             spellCheck={false}
           />

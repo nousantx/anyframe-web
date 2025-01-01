@@ -8,5 +8,5 @@ export function createSlug(text: string): string {
 }
 
 export function getComponentBySlug(components: any[], slug: string) {
-  return components.find(component => createSlug(component.name) === slug)
+  return components.find((component) => createSlug(component.name) === slug)
 }

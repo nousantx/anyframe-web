@@ -6,9 +6,7 @@ export default function HomePage() {
   return (
     <article className="p-2rem h-mn-100vh">
       <header className="tw-balance ta-center">
-        <h1 className="fs-2.4rem lh-1 fw-600 ls--0.015em">
-          Build Your Own UI Components
-        </h1>
+        <h1 className="fs-2.4rem lh-1 fw-600 ls--0.015em">Build Your Own UI Components</h1>
 
         <p className="mt-1rem text-neutral-800 pa lh-1.4">
           Generate any UI components in your browser. Fully editable directly in your browser!

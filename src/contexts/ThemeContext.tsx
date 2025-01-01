@@ -1,4 +1,4 @@
-import React,{ createContext, useContext, useState, useLayoutEffect, useCallback } from 'react'
+import React, { createContext, useContext, useState, useLayoutEffect, useCallback } from 'react'
 import { init, createConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
 
@@ -23,7 +23,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   })
 
   const toggleDarkMode = useCallback((): void => {
-    setDarkMode(prev => {
+    setDarkMode((prev) => {
       const newMode = !prev
       localStorage.setItem('darkMode', newMode.toString())
       return newMode
