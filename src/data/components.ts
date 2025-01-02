@@ -1,4 +1,3 @@
-// src/data/components.ts
 export const componentData: ComponentLibrary = {
   buttons: {
     title: 'Buttons',
@@ -24,7 +23,7 @@ export const componentData: ComponentLibrary = {
     components: [
       {
         name: 'Basic Card',
-        code: '<div class="p-4 border rounded shadow"><h3>Card Title</h3><p>Content</p></div>',
+        code: '<div class="bw-1px bs-solid bdr-c-neutral-900 shadow-lg"><h3>Card Title</h3><p>Content</p></div>',
         description: 'Simple card with title and content'
       }
     ]
@@ -35,7 +34,18 @@ export const componentData: ComponentLibrary = {
     components: [
       {
         name: 'Simple Accordion',
-        code: '<div class="border rounded"><button class="w-full p-2">Toggle</button><div class="p-4">Content</div></div>',
+        code: '<div class="border rounded"><button class="w-full p-2">Toggle</button><div class="p-4px">Content</div></div>',
+        description: 'Basic accordion implementation'
+      }
+    ]
+  },
+  other: {
+    title: 'Other',
+    description: 'Some components you may want to ',
+    components: [
+      {
+        name: 'Playground',
+        code: '<div class="box-200px center bg-lime-200 br-1rem">Content</div>',
         description: 'Basic accordion implementation'
       }
     ]
