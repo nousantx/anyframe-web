@@ -444,11 +444,6 @@
   dependencies:
     "@tenoxui/types" "^0.1.2"
 
-"@remixicon/react@^4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@remixicon/react/-/react-4.6.0.tgz#c25276338b4d7acd29075c5b26a20f19feecac04"
-  integrity sha512-bY56maEgT5IYUSRotqy9h03IAKJC85vlKtWFg2FKzfs8JPrkdBAYSa9dxoUSKFwGzup8Ux6vjShs9Aec3jvr2w==
-
 "@rollup/rollup-android-arm-eabi@4.29.1":
   version "4.29.1"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.29.1.tgz#9bd38df6a29afb7f0336d988bc8112af0c8816c0"
@@ -1274,11 +1269,6 @@ html-void-elements@^3.0.0:
   resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-3.0.0.tgz#fc9dbd84af9e747249034d4d62602def6517f1d7"
   integrity sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==
 
-iconoir-react@^7.10.1:
-  version "7.10.1"
-  resolved "https://registry.yarnpkg.com/iconoir-react/-/iconoir-react-7.10.1.tgz#3898d758a0ff3c0fc3d4b6c18c4f51664b8f6ae8"
-  integrity sha512-Zqxwx+cUfXSrHWn82DNVWCPLq5RKUcDLevUvl37GdYaB73EJ+eNGdpdifGzhIWZ21U7/z0KVcdOJZp5BNyXzBw==
-
 ignore@^5.2.0, ignore@^5.3.1:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
@@ -1643,11 +1633,6 @@ resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
-
-responsive-alt-tui@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/responsive-alt-tui/-/responsive-alt-tui-0.1.0.tgz#6997711711e339f4a80d503d05c45f7b98746dfb"
-  integrity sha512-ItzONeb73CySfOfDKC3iT8kTd7ymtAczAF2Fq4pRMWA9Pw06KfsSRaoHemM3HK+TQYrwQ7HOucZncneMTdtQYw==
 
 reusify@^1.0.4:
   version "1.0.4"
