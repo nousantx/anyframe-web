@@ -17,6 +17,7 @@ export default {
   valueAlias: {
     full: '100%',
     half: '50%',
+    'nav-top': 'calc(62px + 2rem)',
     family: {
       sans: 'Inter, Sans-Serif',
       code: 'JetBrains Mono'
@@ -25,7 +26,13 @@ export default {
   alias: {
     space: 'jc-space-between',
     'content-wrapper': '[m,p]-0 [box-sizing]-border-box',
-    pa: 'fs-1rem fw-500 ls--0.015em'
+    pa: 'fs-1rem fw-500 ls--0.015em',
+    'gradient-text': `
+      [--gt-direction]--45deg 
+      [--gt-color]-[rgb({orange-500}),_rgb({red-500})] 
+      [background]-[-webkit-linear-gradient(var(--gt-direction),var(--gt-color))] 
+      [-webkit-background-clip]-text 
+      [-webkit-text-fill-color]-transparent`
   },
   color: {
     DEFAULT: {
