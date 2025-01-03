@@ -1,36 +1,15 @@
 import { MakeTenoxUI, createConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
+import { DEFAULT_PRESERVED_ATTRIBUTES } from '@/lib/ignore-attributes'
 
-const DEFAULT_PRESERVED_ATTRIBUTES = [
-  'style',
-  'xmlns',
-  'width',
-  'height',
-  'viewBox',
-  'd',
-  'fill',
-  'path',
-  'id',
-  'x1',
-  'x2',
-  'y1',
-  'y2',
-  'gradientUnits',
-  'gradientTransform',
-  'offset',
-  'stop-color',
-  'opacity',
-  'href'
-]
-
-export function generateInlineStyles(code: string): string {
+export function generateInlineStyles(code: string, darkMode?: boolean): string {
   const temp = document.createElement('div')
   temp.innerHTML = code
 
   temp.querySelectorAll('*').forEach((element) => {
     new MakeTenoxUI({
       element,
-      ...createConfig(config)
+      ...createConfig({ ...config, isDark: darkMode })
     }).useDOM()
   })
   temp.querySelectorAll('*').forEach((element) => {

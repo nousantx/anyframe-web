@@ -1,0 +1,21 @@
+export const DEFAULT_PRESERVED_ATTRIBUTES: string[] = [
+  'style',
+  'xmlns',
+  'width',
+  'height',
+  'viewBox',
+  'd',
+  'fill',
+  'path',
+  'id',
+  'x1',
+  'x2',
+  'y1',
+  'y2',
+  'gradientUnits',
+  'gradientTransform',
+  'offset',
+  'stop-color',
+  'opacity',
+  'href'
+]
