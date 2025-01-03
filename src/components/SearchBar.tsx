@@ -93,7 +93,7 @@ export const SearchBar = () => {
             setShowResults(true)
           }}
           onFocus={() => setShowResults(true)}
-          className="h-35px px-12px w-200px br-6px bw-1px bs-solid bg-neutral-100 bdr-c-neutral-200 [outline]-none focus:bdr-c-blue-500 tr-300ms text-neutral-800 pa"
+          className="h-35px px-12px w-200px br-6px bw-1px bs-solid bg-neutral-100 bdr-c-neutral-200 [outline]-none focus:bdr-c-blue-500 tr-300ms text-neutral-800"
         />
         {searchQuery && (
           <button

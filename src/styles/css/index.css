@@ -13,3 +13,8 @@ pre,
 pre * {
   font-family: 'JetBrains Mono', Monospace !important;
 }
+
+.nav-default {
+  transition: 300ms;
+  transition-property: left;
+}

@@ -1,7 +1,5 @@
-import { styler } from '@stylx'
 import { Link } from 'react-router-dom'
 export function Sidebar() {
-  styler()
   return (
     <>
       <Link

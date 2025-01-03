@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useLayoutEffect, useCallback } from 'react'
-import { init, createConfig } from '@nousantx/tenoxui-styler'
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { init, createConfig, type Config as TenoxConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
 
 interface ThemeContextType {
   darkMode: boolean
   toggleDarkMode: () => void
-  config: typeof config
+  config: TenoxConfig
 }
 
 interface ThemeProviderProps {
@@ -51,7 +51,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const handleThemeChange = (e: MediaQueryListEvent) => {
       setDarkMode(e.matches)

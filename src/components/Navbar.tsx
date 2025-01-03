@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { styler } from '@stylx'
 import { useTheme } from '@/contexts/ThemeContext'
 import { SearchBar } from './SearchBar'
 import { Sidebar } from './Sidebar'
 
 export function Navbar() {
-  styler()
   const [showNav, setShowNav] = useState(false)
   const { darkMode, toggleDarkMode } = useTheme()
   const toggleNav = () => setShowNav((prev) => !prev)
@@ -15,21 +13,18 @@ export function Navbar() {
   }
 
   return (
-    <header className="h-62px px-2rem center space-between fixed [t,l,r]-0 bg-neutral-50 bg-opacity-0.4 [backdrop-filter]-[blur(6px)]">
+    <header className="h-62px px-2rem center space-between fixed z-9999 [t,l,r]-0 bg-neutral-50 bg-opacity-0.4 [backdrop-filter]-[blur(6px)]">
       <Link
         to="/"
-        className="lh-1 fs-1.2rem fw-600 ls--0.020em td-none text-neutral-950 h-35px center"
+        className="lh-1 fs-1.2rem fw-600 ls--0.020em td-none text-neutral-950 h-35px center tw-nowrap"
       >
-        nUI
+        <span className="text-neutral-700 fw-300">any</span>Frame
       </Link>
 
-      <div className="center flex-wrap gap-8px">
+      <div className="flex flex-wrap jc-flex-end ai-center gap-8px">
         <SearchBar />
 
-        <button
-          className="[border,outline]-none center box-35px br-6px [background]-transparent hover:bg-neutral-200 text-neutral-950 bg-opacity-0.5 tr-300ms"
-          onClick={handleThemeToggle}
-        >
+        <button className="btn-icon-2" onClick={handleThemeToggle}>
           {darkMode ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
               <path
@@ -54,10 +49,7 @@ export function Navbar() {
             </svg>
           )}
         </button>
-        <button
-          className="[border,outline]-none center box-35px br-6px [background]-transparent hover:bg-neutral-200 text-neutral-950 bg-opacity-0.5 tr-300ms"
-          onClick={toggleNav}
-        >
+        <button className="btn-icon-2" onClick={toggleNav}>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
             <path
               fill="none"
@@ -73,7 +65,7 @@ export function Navbar() {
           id="sidebar"
           className={`[background]-[rgb({neutral-50})] fixed h-100dvh p-1.5rem shadow-xl shadow-neutral-950 t-0 l-${
             showNav ? '0' : '-100%'
-          } [transition]-300ms [transition-property]-[left] flex-col gap-1rem md-up`}
+          } nav-default flex-col gap-1rem`}
         >
           <Sidebar />
         </nav>
