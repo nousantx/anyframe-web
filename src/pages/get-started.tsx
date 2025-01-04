@@ -29,7 +29,7 @@ export default function Start() {
           <span className="active">Get Started</span>
         </div>
 
-        <h1 className="text-2xl">What's this?</h1>
+        <h1 className="text-xl">What's this?</h1>
         <p>
           This project is just a components library. But, the key differences from another libraries
           are, you are not restricted to any JavaScript or CSS frameworks or libraries you uses,
@@ -43,7 +43,7 @@ export default function Start() {
       </header>
 
       <section className="mt-3rem">
-        <h2 className="text-xl">How it works?</h2>
+        <h2 className="text-lg">How it works?</h2>
 
         <p>
           Let's say you pick one of button components here. If you see the code, you may notice the
@@ -56,7 +56,24 @@ export default function Start() {
         <p>
           But of course you won't stick with the CSS properties directly. You can use properties
           shorthand, such as <span className="code">bg-</span> for{' '}
-          <span className="code">background</span> property, and so on.
+          <span className="code">background</span> property, and so on. For example, instead of
+          using <span className="code">class="[background]-red [color]-blue [font-size]-2rem"</span>
+          , you can use <span className="code">class="bg-red text-blue fs-2rem"</span>.
+        </p>
+        <p>
+          If the component doesn't matching your tastes, you can edit them by clicking edit button.
+          And finally, you can copy the final components and just paste it into your project.
+        </p>
+
+        <h2 className="text-lg mt-2.5rem">⚠️ Limitations</h2>
+
+        <p>
+          Since the styles are <span className="light">inlined</span>, something like{' '}
+          <span className="code">hover</span> and <span className="code">focus</span> won't
+          generated, and it will also disabled all <span className="code">shorthands</span> that
+          include <span className="code">transition</span> and{' '}
+          <span className="code">transition-time</span> properties (will set to{' '}
+          <span className="code">none</span>).
         </p>
       </section>
     </article>

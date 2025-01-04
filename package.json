@@ -1,10 +1,11 @@
 {
   "name": "@nousantx/anyframe-ui",
-  "private": true,
+  "description": "Generate component, copy, and paste it!",
   "version": "1.0.0",
-  "type": "module",
+  "author": "NOuSantx <nousantx@gmail.com>",
   "license": "MIT",
-  "author":"NOuSantx <nousantx@gmail.com>",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
