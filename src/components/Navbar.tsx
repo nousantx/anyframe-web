@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTheme } from '@/contexts/ThemeContext'
 import { SearchBar } from './SearchBar'
 import { Sidebar } from './Sidebar'
+import { styler } from '@stylx'
 
 export function Navbar() {
   const [showNav, setShowNav] = useState(false)
@@ -11,7 +12,7 @@ export function Navbar() {
   const handleThemeToggle = () => {
     toggleDarkMode()
   }
-
+  styler([showNav])
   return (
     <header className="h-62px px-2rem center space-between fixed z-9999 [t,l,r]-0 bg-neutral-50 bg-opacity-0.4 [backdrop-filter]-[blur(6px)]">
       <Link
@@ -63,9 +64,9 @@ export function Navbar() {
         </button>
         <nav
           id="sidebar"
-          className={`[background]-[rgb({neutral-50})] fixed h-100dvh p-1.5rem shadow-xl shadow-neutral-950 t-0 l-${
+          className={`[background]-[rgb({neutral-50})] fixed h-100dvh p-1.5rem shadow-xl shadow-neutral-950 nav-default flex-col gap-1rem over-y-scroll t-0 l-${
             showNav ? '0' : '-100%'
-          } nav-default flex-col gap-1rem`}
+          } `}
         >
           <Sidebar />
         </nav>
