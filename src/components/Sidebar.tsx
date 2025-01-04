@@ -38,10 +38,23 @@ export function Sidebar() {
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="1.5"
-              d="M8 21v-5m0 0V3.577a.6.6 0 0 1 .916-.51l8.79 5.442a.6.6 0 0 1 .017 1.009z"
+              d="M9 21.5v-6m0 0V6.997a.6.6 0 0 1 .88-.53l6.67 3.53a.6.6 0 0 1 .024 1.048zM22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10"
             />
           </svg>
           Get Started
+        </NavLink>
+        <NavLink to="/installation" className={mainNavClass}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18h12M12 6v8m0 0l3.5-3.5M12 14l-3.5-3.5"
+              />
+              <path d="M3 20.4V3.6a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6v16.8a.6.6 0 0 1-.6.6H3.6a.6.6 0 0 1-.6-.6Z" />
+            </g>
+          </svg>
+          Installation
         </NavLink>
         <NavLink to="/docs" className={mainNavClass}>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
