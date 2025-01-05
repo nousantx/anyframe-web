@@ -10,7 +10,7 @@ export const globals = {
   '.breadcrumbs .active': 'text-neutral-950 td-none fw-500 text-sm',
 
   // tag
-  p: 'pa text-neutral-800',
+  'p:not(#livePreview *, #code-preview *)': 'pa text-neutral-800',
 
   // button
   '.btn':

@@ -10,6 +10,6 @@ export const styler = (deps: any[] = []) => {
   useLayoutEffect(() => {
     applyStyles(globals, darkMode)
     const tenoxuiConfig = createConfig({ ...config, isDark: darkMode })
-    init({ config: tenoxuiConfig })
+    init({ config: tenoxuiConfig, selectors: '*:not(#code-preview *)' })
   }, [darkMode, ...deps])
 }
