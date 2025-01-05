@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "rootDir": "./",
+    "outDir": ".pkg/dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true
+  },
+  "include": [".pkg/src", "tenoxui.config.ts"],
+  "exclude": ["node_modules", "dist", ".pkg/dist"]
+}

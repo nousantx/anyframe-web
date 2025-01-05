@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:config": "rollup -c",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -20,8 +21,12 @@
     "@eslint/js": "^9.17.0",
     "@generouted/react-router": "^1.19.9",
     "@nousantx/tenoxui-styler": "^0.1.22",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/dompurify": "^3.2.0",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.5",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
@@ -31,9 +36,11 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "react-router-dom": "^7.1.1",
+    "rollup": "^4.29.1",
     "shiki": "^1.24.4",
     "tenoxui-plugin-utility": "^0.1.2",
-    "typescript": "~5.6.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
   }
