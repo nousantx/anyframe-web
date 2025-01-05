@@ -3,9 +3,28 @@ import { componentData } from '@/data/components'
 import { styler } from '@stylx'
 import { ComponentPreview } from '@/components/ComponentPreview'
 import { ArrowRight } from '@/components/ArrowRight'
+import { useCallback, useMemo } from 'react'
+
 export default function CategoryPage() {
   const { category } = useParams()
-  const categoryData = category ? componentData[category] : null
+
+  // Memoize category data
+  const categoryData = useMemo(() => (category ? componentData[category] : null), [category])
+
+  // Memoize render function for components
+  const renderComponents = useCallback(() => {
+    if (!categoryData?.components) return null
+
+    return categoryData.components.map((component, index) => (
+      <ComponentPreview
+        key={`${category}-${component.name}-${index}`}
+        name={component.name}
+        code={component.code}
+        categoryId={category}
+      />
+    ))
+  }, [category, categoryData?.components])
+
   styler()
 
   if (!categoryData) {
@@ -85,19 +104,7 @@ export default function CategoryPage() {
         <p className="mt-8px text-sm">{categoryData.description}</p>
       </header>
 
-      <section className="mt-2rem">
-        {categoryData.components.map((component, index) => (
-          <>
-            <ComponentPreview
-              key={index}
-              name={component.name}
-              code={component.code}
-              description={component.description}
-              categoryId={category}
-            />
-          </>
-        ))}
-      </section>
+      <section className="mt-2rem">{renderComponents()}</section>
     </article>
   )
 }

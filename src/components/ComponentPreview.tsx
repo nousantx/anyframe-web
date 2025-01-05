@@ -1,20 +1,55 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, memo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { createSlug } from '@/utils/slugs'
 import { styler } from '@stylx'
 import { useTheme } from '@/contexts/ThemeContext'
 import { generateInlineStyles } from '@/utils/tenoxui'
 import { highlightCode } from '@/utils/shiki'
+import { MakeTenoxUI, createConfig } from '@nousantx/tenoxui-styler'
+import config from '@app/tenoxui.config'
+
+const Preview = memo(({ code, isDark }: { code: string; isDark: boolean }) => {
+  const previewRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const wrapper = previewRef.current
+    if (wrapper) {
+      const elements = wrapper.querySelectorAll('*')
+      elements.forEach((e) => {
+        new MakeTenoxUI({
+          element: e as HTMLElement,
+          ...createConfig({ ...config, isDark })
+        }).useDOM()
+      })
+    }
+  }, [code])
+
+  return (
+    <div ref={previewRef} className="family-sans h-mn-150px center p-2rem" id="code-preview">
+      <div dangerouslySetInnerHTML={{ __html: code }} />
+    </div>
+  )
+})
+
+const CodeView = memo(({ html }: { html: string }) => (
+  <div className="over-x-scroll shadow-md [--nsx_shadow-color]-neutral-700 br-8px">
+    {html && (
+      <div
+        className="w-max-content"
+        data-child="(pre): fs-12px lh-1.6 p-1rem br-8px bg-neutral-50;"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    )}
+  </div>
+))
 
 export const ComponentPreview = ({
   code,
   name,
-  description,
   categoryId
 }: {
   code: string
   name: string
-  description: string
   categoryId?: string
 }) => {
   const { darkMode } = useTheme()
@@ -23,19 +58,25 @@ export const ComponentPreview = ({
   const [copySuccess, setCopySuccess] = useState(false)
   const [html, setHtml] = useState('')
 
-  useEffect(() => {
+  // Memoize style generation
+  const generateStyles = useCallback(() => {
     setStyles(generateInlineStyles(code, darkMode))
-    const updateHighlightedCode = async () => {
-      try {
-        const highlighted = await highlightCode(code, darkMode)
-        setHtml(highlighted)
-      } catch (error) {
-        console.error('Error highlighting code:', error)
-      }
-    }
-
-    updateHighlightedCode()
   }, [code, darkMode])
+
+  // Memoize code highlighting
+  const updateHighlightedCode = useCallback(async () => {
+    try {
+      const highlighted = await highlightCode(code, darkMode)
+      setHtml(highlighted)
+    } catch (error) {
+      console.error('Error highlighting code:', error)
+    }
+  }, [code, darkMode])
+
+  useEffect(() => {
+    generateStyles()
+    updateHighlightedCode()
+  }, [generateStyles, updateHighlightedCode])
 
   const handleCopy = async () => {
     try {
@@ -54,7 +95,6 @@ export const ComponentPreview = ({
     <article className="mt-3rem">
       <header className="tw-balance">
         <h3 className="text-md">{name}</h3>
-        <p className="mt-8px text-sm text-neutral-800">{description}</p>
       </header>
       <section className="mt-1.5rem">
         <nav className="flex space-between bw-0 bw-bottom-1px bs-solid bc-neutral-200">
@@ -135,19 +175,9 @@ export const ComponentPreview = ({
         </nav>
         <div className="mt-1rem [background]-[rgb({neutral-100}_/_0.3)] br-8px" data-styler>
           {activeTab === 'preview' ? (
-            <div className="family-sans h-mn-150px center p-2rem" id="livePreview">
-              <div dangerouslySetInnerHTML={{ __html: code }} />
-            </div>
+            <Preview code={code} isDark={darkMode} />
           ) : (
-            <div className="over-x-scroll shadow-md [--nsx_shadow-color]-neutral-700 br-8px">
-              {html && (
-                <div
-                  className="w-max-content"
-                  data-child="(pre): fs-12px lh-1.6 p-1rem br-8px bg-neutral-50;"
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
-              )}
-            </div>
+            <CodeView html={html} />
           )}
         </div>
       </section>
