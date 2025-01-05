@@ -23,5 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# temporary
+*.temp.*
+*.generated.*
+.generated
+.pkg/dist
+
 # Generouted
 src/routes
