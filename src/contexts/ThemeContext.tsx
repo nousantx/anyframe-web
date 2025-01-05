@@ -40,7 +40,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       timeoutId = window.setTimeout(() => {
         const tenoxuiConfig = createConfig({ ...config, isDark })
-        init({ config: tenoxuiConfig })
+        init({ config: tenoxuiConfig, selectors: '*:not(#code-preview *)' })
       }, 100)
 
       return () => {
