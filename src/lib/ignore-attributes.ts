@@ -17,5 +17,9 @@ export const DEFAULT_PRESERVED_ATTRIBUTES: string[] = [
   'offset',
   'stop-color',
   'opacity',
-  'href'
+  'href',
+  'stroke',
+  'stroke-linecap',
+  'stroke-linejoin',
+  'stroke-width'
 ]
