@@ -7,7 +7,7 @@ export default function HomePage() {
     <article className="center">
       <header className="tw-balance ta-center">
         <h1 className="fs-2.4rem lh-1 fw-600 ls--0.015em mt-1rem">
-          Get Your Own UI Components with{' '}
+          Create Your Own UI Components with{' '}
           <span className="fw-700 gradient-text">Unlimited Possibilities</span>
         </h1>
 

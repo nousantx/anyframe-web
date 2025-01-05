@@ -11,59 +11,76 @@ import { MakeTenoxUI, createConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
 import { ArrowRight } from '@/components/ArrowRight'
 
+interface ComponentState {
+  code: string
+  name: string
+  description: string
+  styles: string
+  error: string | null
+  originalData: any | null
+}
+
+const initialState: ComponentState = {
+  code: '',
+  name: '',
+  description: '',
+  styles: '',
+  error: null,
+  originalData: null
+}
+
 export default function EditComponentPage() {
   const { category, component } = useParams()
-  const [code, setCode] = useState('')
-  const [componentName, setComponentName] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [styles, setStyles] = useState('')
+  const [componentState, setComponentState] = useState<ComponentState>(initialState)
   const { darkMode } = useTheme()
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (category && component) {
       const categoryData = componentData[category]
-      if (categoryData) {
-        const componentData = getComponentBySlug(categoryData.components, component)
-        if (componentData) {
-          setCode(componentData.code)
-          setComponentName(componentData.name)
-          setError(null)
-        } else {
-          setError('Component not found')
-        }
-      } else {
-        setError('Category not found')
+      if (!categoryData) {
+        setComponentState((prev) => ({ ...prev, error: 'Category not found' }))
+        return
       }
+
+      const foundComponent = getComponentBySlug(categoryData.components, component)
+      if (!foundComponent) {
+        setComponentState((prev) => ({ ...prev, error: 'Component not found' }))
+        return
+      }
+
+      setComponentState({
+        code: foundComponent.code,
+        name: foundComponent.name,
+        description: foundComponent.description,
+        styles: '',
+        error: null,
+        originalData: foundComponent
+      })
     }
   }, [category, component])
 
-  /**?
-   * You can remove the debounce if you want `real-time` style computation, -
-   * but it will sacrifice the performance, because it will run the tenoxui -
-   * over and over again the code changed, even just single word.
-   *
-   * So, debounce is needed frfr 💀
-   */
-
   useLayoutEffect(() => {
-    // will apply syntax highlighting to the output styles that generated from tenoxui
     const updateHighlightedCode = async () => {
       try {
-        const highlighted = await highlightCode(generateInlineStyles(code, darkMode), darkMode)
-        setStyles(highlighted)
+        const highlighted = await highlightCode(
+          generateInlineStyles(componentState.code, darkMode),
+          darkMode
+        )
+        setComponentState((prev) => ({ ...prev, styles: highlighted }))
       } catch (error) {
         console.error('Error highlighting code:', error)
       }
     }
 
-    // only applt tenoxui on the preview, not all UIs
-    function applyStyles() {
+    const applyStyles = () => {
       const temp = document.querySelector('#code-preview')
-
       if (temp) {
         temp.querySelectorAll('*').forEach((element) => {
-          new MakeTenoxUI({ element, ...createConfig({ ...config, isDark: darkMode }) }).useDOM()
+          new MakeTenoxUI({
+            element,
+            ...createConfig({ ...config, isDark: darkMode })
+          }).useDOM()
         })
       }
     }
@@ -82,14 +99,18 @@ export default function EditComponentPage() {
         clearTimeout(debounceRef.current)
       }
     }
-  }, [code, darkMode])
+  }, [componentState.code, darkMode])
 
-  styler([styles])
+  styler([componentState.styles])
 
-  if (error) {
+  const handleCodeChange = (newCode: string) => {
+    setComponentState((prev) => ({ ...prev, code: newCode }))
+  }
+
+  if (componentState.error) {
     return (
       <article>
-        <header className="text-red-500 fw-600">{error}</header>
+        <header className="text-red-500 fw-600">{componentState.error}</header>
         <Link to="/components" className="text-blue-500 td-none hover:td-underline">
           Back to components
         </Link>
@@ -137,31 +158,34 @@ export default function EditComponentPage() {
             />
           </svg>
 
-          <span className="active">{componentName}</span>
+          <span className="active">{componentState.name}</span>
         </div>
-        <h1 className="text-xl">{componentName}</h1>
+        <h1 className="text-xl">{componentState.name}</h1>
+        <p className="mt-1rem">{componentState.description}</p>
       </header>
 
       <section
         className="mt-2rem flex gap-2rem flex-wrap w-full"
         data-child="(article): [flex]-[1_1_350px] w-full mt-2rem; (h2): text-md;"
       >
-        {/* Preview */}
         <article>
           <h2>Preview</h2>
           <div
             className="mt-8px p-2rem br-8px h-mn-150px center [background]-[rgb({neutral-100}_/_0.3)]"
             id="livePreview"
           >
-            <div id="code-preview" dangerouslySetInnerHTML={{ __html: sanitizeHtml(code) }} />
+            <div
+              id="code-preview"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(componentState.code) }}
+            />
           </div>
         </article>
-        {/* Editor */}
+
         <article>
           <h2>Editor</h2>
           <textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            value={componentState.code}
+            onChange={(e) => handleCodeChange(e.target.value)}
             className="mt-1rem br-8px family-code w-full p-1rem text-rose-600 lh-1.5 [border,outline]-none [background]-[rgb({neutral-100}_/_0.3)] h-mn-250px tw-nowrap [resize]-vertical"
           />
         </article>
@@ -172,8 +196,11 @@ export default function EditComponentPage() {
             className="mt-1rem [background]-[rgb({neutral-100}_/_0.3)] br-8px over-x-scroll"
             data-child="(pre): fs-12px lh-1.6 p-1rem br-8px bg-neutral-50;"
           >
-            {styles && (
-              <div className="w-max-content" dangerouslySetInnerHTML={{ __html: styles }} />
+            {componentState.styles && (
+              <div
+                className="w-max-content"
+                dangerouslySetInnerHTML={{ __html: componentState.styles }}
+              />
             )}
           </div>
         </article>
