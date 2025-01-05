@@ -34,6 +34,12 @@ export default {
       [-webkit-background-clip]-text 
       [-webkit-text-fill-color]-transparent`
   },
+  utilityClass: {
+    border: {
+      borderWidth: '1px',
+      borderStyle: 'solid'
+    }
+  },
   color: {
     DEFAULT: {
       // main color
