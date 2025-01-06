@@ -176,10 +176,10 @@ export const componentData: ComponentLibrary = {
   class="family-sans [--gradient]-[conic-gradient(from_45deg,_rgb({amber-500}),_rgb({fuchsia-500}),_rgb({amber-500}))]"
   data-child="(*): [m,p]-0 [box-sizing]-border-box;"
 >
-  <div class="[--box-size]-250px box-$box-size br-8px center relative [isolation]-isolate [background]-$gradient">
+  <div class="[--box-size]-250px [--gradient-width,br]-5px box-$box-size center relative [isolation]-isolate [background]-$gradient">
     <div class="box-$box-size br-8px absolute z--1 [filter]-[blur(30px)] [background]-$gradient"></div>
     <div
-      class="box-[calc(var(--box-size)_-_10px)] [background]-[linear-gradient(45deg,_rgb({neutral-50}),_rgb({neutral-100}))] text-neutral-900 br-4px p-1.5rem flex flex-col"
+      class="box-[calc(var(--box-size)_-_var(--gradient-width)_*_2)] [background]-[linear-gradient(45deg,_rgb({neutral-50}),_rgb({neutral-100}))] text-neutral-900 br-[calc(var(--gradient-width)_/_2)] p-1.5rem flex flex-col"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
         <path
