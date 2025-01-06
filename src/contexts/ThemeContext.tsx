@@ -1,77 +1,70 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+// ThemeContext.tsx
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useMemo
+} from 'react'
 import { init, createConfig, type Config as TenoxConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
 
 interface ThemeContextType {
-  darkMode: boolean
+  theme: TenoxConfig
   toggleDarkMode: () => void
-  config: TenoxConfig
-}
-
-interface ThemeProviderProps {
-  children: React.ReactNode
+  darkMode: boolean
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [isDark, setIsDark] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false
     const storedTheme = localStorage.getItem('darkMode')
     if (storedTheme !== null) return storedTheme === 'true'
     return window.matchMedia('(prefers-color-scheme: dark)').matches
   })
 
+  // Memoize the theme configuration
+  const theme = useMemo(() => createConfig({ ...config, isDark }), [isDark])
+
   const toggleDarkMode = useCallback((): void => {
-    setDarkMode((prev) => {
+    setIsDark(prev => {
       const newMode = !prev
       localStorage.setItem('darkMode', newMode.toString())
       return newMode
     })
   }, [])
 
-  const debouncedInit = useCallback((isDark: boolean) => {
-    let timeoutId: number | undefined
-
-    return () => {
-      if (timeoutId) {
-        window.clearTimeout(timeoutId)
-      }
-
-      timeoutId = window.setTimeout(() => {
-        const tenoxuiConfig = createConfig({ ...config, isDark })
-        init({ config: tenoxuiConfig, selectors: '*:not(#code-preview *)' })
-      }, 100)
-
-      return () => {
-        if (timeoutId) {
-          window.clearTimeout(timeoutId)
-        }
-      }
-    }
-  }, [])
-
+  // Initialize theme only once when component mounts or theme changes
   useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      init({ config: theme, selectors: '*:not(#code-preview *)' })
+    }, 100)
+
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const handleThemeChange = (e: MediaQueryListEvent) => {
-      setDarkMode(e.matches)
+      setIsDark(e.matches)
     }
-
-    const cleanup = debouncedInit(darkMode)()
 
     mediaQuery.addEventListener('change', handleThemeChange)
 
     return () => {
-      cleanup()
+      window.clearTimeout(timeoutId)
       mediaQuery.removeEventListener('change', handleThemeChange)
     }
-  }, [darkMode, debouncedInit])
+  }, [theme])
 
-  const value: ThemeContextType = {
-    darkMode,
-    toggleDarkMode,
-    config
-  }
+  const value = useMemo(
+    () => ({
+      theme,
+      toggleDarkMode,
+      darkMode: isDark
+    }),
+    [theme, toggleDarkMode]
+  )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

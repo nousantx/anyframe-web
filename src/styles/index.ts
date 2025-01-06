@@ -6,10 +6,9 @@ import { applyStyles } from '@/utils/applyStyles'
 import { globals } from './global'
 
 export const styler = (deps: any[] = []) => {
-  const { darkMode } = useTheme()
+  const { theme, darkMode } = useTheme()
   useLayoutEffect(() => {
     applyStyles(globals, darkMode)
-    const tenoxuiConfig = createConfig({ ...config, isDark: darkMode })
-    init({ config: tenoxuiConfig, selectors: '*:not(#code-preview *)' })
-  }, [darkMode, ...deps])
+    init({ config: theme, selectors: '*:not(#code-preview *)' })
+  }, [theme, ...deps])
 }

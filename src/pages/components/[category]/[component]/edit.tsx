@@ -32,20 +32,21 @@ const initialState: ComponentState = {
 export default function EditComponentPage() {
   const { category, component } = useParams()
   const [componentState, setComponentState] = useState<ComponentState>(initialState)
-  const { darkMode } = useTheme()
+  const [onlyTest, setOnlyTest] = useState('')
+  const { darkMode, theme } = useTheme()
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (category && component) {
       const categoryData = componentData[category]
       if (!categoryData) {
-        setComponentState((prev) => ({ ...prev, error: 'Category not found' }))
+        setComponentState(prev => ({ ...prev, error: 'Category not found' }))
         return
       }
 
       const foundComponent = getComponentBySlug(categoryData.components, component)
       if (!foundComponent) {
-        setComponentState((prev) => ({ ...prev, error: 'Component not found' }))
+        setComponentState(prev => ({ ...prev, error: 'Component not found' }))
         return
       }
 
@@ -64,10 +65,10 @@ export default function EditComponentPage() {
     const updateHighlightedCode = async () => {
       try {
         const highlighted = await highlightCode(
-          generateInlineStyles(componentState.code, darkMode),
+          generateInlineStyles(componentState.code, theme),
           darkMode
         )
-        setComponentState((prev) => ({ ...prev, styles: highlighted }))
+        setComponentState(prev => ({ ...prev, styles: highlighted }))
       } catch (error) {
         console.error('Error highlighting code:', error)
       }
@@ -76,10 +77,11 @@ export default function EditComponentPage() {
     const applyStyles = () => {
       const temp = document.querySelector('#code-preview')
       if (temp) {
-        temp.querySelectorAll('*').forEach((element) => {
+        temp.querySelectorAll('*').forEach(element => {
           new MakeTenoxUI({
             element,
-            ...createConfig({ ...config, isDark: darkMode })
+            ...theme
+            // ...createConfig({ ...config, isDark: darkMode })
           }).useDOM()
         })
       }
@@ -99,12 +101,12 @@ export default function EditComponentPage() {
         clearTimeout(debounceRef.current)
       }
     }
-  }, [componentState.code, darkMode])
+  }, [componentState.code, theme])
 
   styler([componentState.styles])
 
   const handleCodeChange = (newCode: string) => {
-    setComponentState((prev) => ({ ...prev, code: newCode }))
+    setComponentState(prev => ({ ...prev, code: newCode }))
   }
 
   if (componentState.error) {
@@ -185,7 +187,7 @@ export default function EditComponentPage() {
           <h2>Editor</h2>
           <textarea
             value={componentState.code}
-            onChange={(e) => handleCodeChange(e.target.value)}
+            onChange={e => handleCodeChange(e.target.value)}
             className="mt-1rem br-8px family-code w-full p-1rem text-rose-600 lh-1.5 [border,outline]-none [background]-[rgb({neutral-100}_/_0.3)] h-mn-250px tw-nowrap [resize]-vertical"
           />
         </article>
@@ -208,3 +210,5 @@ export default function EditComponentPage() {
     </article>
   )
 }
+
+

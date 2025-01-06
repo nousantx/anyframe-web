@@ -8,21 +8,21 @@ import { highlightCode } from '@/utils/shiki'
 import { MakeTenoxUI, createConfig } from '@nousantx/tenoxui-styler'
 import config from '@app/tenoxui.config'
 
-const Preview = memo(({ code, isDark }: { code: string; isDark: boolean }) => {
+const Preview = memo(({ code, theme }: { code: string; theme: any }) => {
   const previewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const wrapper = previewRef.current
     if (wrapper) {
       const elements = wrapper.querySelectorAll('*')
-      elements.forEach((e) => {
+      elements.forEach(e => {
         new MakeTenoxUI({
           element: e as HTMLElement,
-          ...createConfig({ ...config, isDark })
+          ...theme
         }).useDOM()
       })
     }
-  }, [code])
+  }, [theme])
 
   return (
     <div ref={previewRef} className="family-sans h-mn-150px center p-2rem" id="code-preview">
@@ -52,7 +52,7 @@ export const ComponentPreview = ({
   name: string
   categoryId?: string
 }) => {
-  const { darkMode } = useTheme()
+  const { theme, darkMode } = useTheme()
   const [activeTab, setActiveTab] = useState('preview')
   const [styles, setStyles] = useState('')
   const [copySuccess, setCopySuccess] = useState(false)
@@ -60,7 +60,7 @@ export const ComponentPreview = ({
 
   // Memoize style generation
   const generateStyles = useCallback(() => {
-    setStyles(generateInlineStyles(code, darkMode))
+    setStyles(generateInlineStyles(code, theme))
   }, [code, darkMode])
 
   // Memoize code highlighting
@@ -175,7 +175,7 @@ export const ComponentPreview = ({
         </nav>
         <div className="mt-1rem [background]-[rgb({neutral-100}_/_0.3)] br-8px" data-styler>
           {activeTab === 'preview' ? (
-            <Preview code={code} isDark={darkMode} />
+            <Preview code={code} theme={theme} />
           ) : (
             <CodeView html={html} />
           )}
