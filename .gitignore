@@ -31,3 +31,7 @@ dist-ssr
 
 # Generouted
 src/routes
+
+# firebase
+.firebase
+.firebaserc
