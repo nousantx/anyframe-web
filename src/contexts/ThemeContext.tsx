@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useMemo(() => createConfig({ ...config, isDark }), [isDark])
 
   const toggleDarkMode = useCallback((): void => {
-    setIsDark(prev => {
+    setIsDark((prev) => {
       const newMode = !prev
       localStorage.setItem('darkMode', newMode.toString())
       return newMode

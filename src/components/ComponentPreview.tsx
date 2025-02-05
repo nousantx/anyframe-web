@@ -15,7 +15,7 @@ const Preview = memo(({ code, theme }: { code: string; theme: any }) => {
     const wrapper = previewRef.current
     if (wrapper) {
       const elements = wrapper.querySelectorAll('*')
-      elements.forEach(e => {
+      elements.forEach((e) => {
         new MakeTenoxUI({
           element: e as HTMLElement,
           ...theme
